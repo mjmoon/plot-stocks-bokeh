@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+    web:
+        restart: always
+        build: ./app/
+        image: bokeh:prod
+        command: app --port 5000 --allow-websocket-origin=mm-plot-stocks.herokuapp.com --allow-websocket-origin=localhost:5000 --allow-websocket-origin=blog.micbon.com
+        networks:
+            - web_nw
+    nginx:
+        restart: always
+        build: ./nginx/
+        image: nginx:prod
+        ports:
+            - "5000:5100"
+        networks:
+            - web_nw
+        depends_on:
+            - web
+networks:
+    web_nw:
+        driver: bridge
+
+# docker-compose up --scale web=4

@@ -1,0 +1,5 @@
+bokeh
+alpha_vantage
+pandas_datareader
+pandas
+numpy

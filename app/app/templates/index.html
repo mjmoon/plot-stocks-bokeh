@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title }}</title>
+        {{ bokeh_css }}
+        {{ bokeh_js }}
+        <link rel="stylesheet" href="app/static/css/app.css" type="text/css" />
+    </head>
+    <body>
+        {{ plot_div|indent(8) }}
+        {{ plot_script|indent(8) }}
+    </body>
+</html>

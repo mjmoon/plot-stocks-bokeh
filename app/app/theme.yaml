@@ -1,0 +1,25 @@
+attrs:
+    Figure:
+        background_fill_color: '#ffffff'
+        border_fill_color: '#ffffff'
+        outline_line_color: '#ffffff'
+    Axis:
+        axis_line_color: '#3e3e3e'
+        axis_label_text_color: '#3e3e3e'
+        major_label_text_color: '#3e3e3e'
+        major_tick_line_color: '#3e3e3e'
+        minor_tick_line_color: '#3e3e3e'
+        minor_tick_line_color: '#3e3e3e'
+    Grid:
+        visible: true
+        # grid_line_color: '#ccc'
+        # grid_line_alpha: 0.5
+    Title:
+        text_color: '#3e3e3e'
+    Legend:
+        location: 'top_left'
+        background_fill_color: '#ffffff'
+        background_fill_alpha: 0.8
+        border_line_color: '#ffffff'
+        label_text_color: '#3e3e3e'
+        click_policy: 'hide'

@@ -1,0 +1,100 @@
+/* Body theme */
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900');
+body .bk-root {
+  font-family: 'Source Sans Pro', Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color:#3e3e3e;
+  background: #ffffff;
+}
+
+/* Button group */
+.bk-root .bk-bs-btn {
+  font-weight: 600;
+  }
+
+.bk-root .bk-bs-btn-default {
+  color: #3e3e3e;
+  background: #ffffff;
+  border-color: #ccc;
+}
+
+.bk-root .bk-bs-btn-default.bk-bs-active {
+  color: #ffffff;
+  background: #ccc;
+  border-color: #ccc;
+}
+
+/* Input box */
+.bk-root .bk-widget-form-input {
+  color: #3e3e3e;
+  background: #ffffff;
+  border-color: #ccc;
+}
+
+.bk-root .bk-widget-form-group label {
+  display: inline;
+}
+
+.bk-root .bk-widget-form-group input {
+  height: 29px;
+  margin-bottom: 2px;
+}
+
+/* Hover tool */
+.bk-root .bk-tooltip {
+  background: rgba(255, 255, 255, 0.5);
+  border: #3e3e3e;
+}
+
+.bk-tooltip-row-label {
+  font-weight:800;
+}
+
+/* Spinner */
+
+.bk-root .loader-overlay {
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+}
+
+.bk-root .loader-spinner{
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: #3e3e3e;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10001;
+
+    -webkit-animation: scaleout 1.0s infinite ease-in-out;
+    animation: scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes scaleout {
+  0% { -webkit-transform: scale(0.0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleout {
+  0% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 100% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
