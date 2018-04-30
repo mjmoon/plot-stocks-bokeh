@@ -56,8 +56,8 @@ def create_plot(doc):
                 Div(text='<h3>Symbols</h3>'),
                 symbol_selector,
                 width=plot_width-400
-            ))
-
+            )),
+            height=95
         ),
         plot(
             period_selector.active,
@@ -66,7 +66,9 @@ def create_plot(doc):
         ),
         spinner,
         overlay,
-        width=plot_width+20
+        width=plot_width+20,
+        height=plot_height+120,
+        sizing_mode='fixed'
     )
     # layout.css_classes = ['wrapper']
 

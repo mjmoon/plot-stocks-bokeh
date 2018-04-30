@@ -1,7 +1,13 @@
 /* Body theme */
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900');
-body .bk-root {
+.slides > .bk-root h1,
+.slides > .bk-root h2,
+.slides > .bk-root h3,
+.slides > .bk-root h4,
+.slides > .bk-root h5,
+.slides > .bk-root h6,
+.slides > .bk-root p {
   font-family: 'Source Sans Pro', Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
