@@ -35,7 +35,8 @@ class StockPrices(object):
 
     def get_history(self, symbols):
         """Return 5 years of data."""
-        data_start = date.today() - relativedelta(years=5)
+        start = date.today() - relativedelta(years=5)
+        end = date.today()
         if isinstance(symbols, str):
             symbols = [symbols]
         if self._history is not None:
@@ -45,12 +46,10 @@ class StockPrices(object):
                 self._history =\
                     pd.concat([
                         self._history,
-                        self._retreive_history(
-                            new_symbols, data_start)
-                        ])
+                        self._retreive_history(new_symbols, start, end)
+                    ])
         else:
-            self._history = self._retreive_history(
-                symbols, data_start)
+            self._history = self._retreive_history(symbols, start, end)
         return self._history
 
     def get_recent(self, symbols):
@@ -71,34 +70,43 @@ class StockPrices(object):
         return self._recent
 
     def _retreive_history(
-            self, symbols, start_date=None, end_date=None):
+            self, symbols, start_date, end_date):
         """Retrieve daily stock prices."""
+        data_list = []
         try:
-            data = self._datareader.DataReader(
-                symbols, 'iex', start_date, end_date)
+            for sym in symbols:
+                datum = self._datareader.DataReader(
+                    sym, 'iex', start_date, end_date
+                )
+                datum['symbol'] = sym
+                data_list.append(datum)
+            data = pd.concat(data_list)
+            data.rename(columns=lambda x: x.lower(), inplace=True)
+            data.index = pd.to_datetime(data.index)
+            return data.reset_index().set_index(['symbol', 'date'])
         except:
-            data = []
-            print("Error while retreiving data.")
-        data.rename(columns=lambda x: x.lower(), inplace=True)
-        data.index.names = [x.lower() for x in data.index.names]
-        return data
+            print("Error retreiving data for " + sym)
+            return pd.DataFrame()
 
     def _retreive_recent(
             self, symbols, interval=1, output_size='full'):
         """Retrieve intra-day stock prices using Alpha Vantage API."""
         data_list = []
-        for sym in symbols:
-            datum = self._alphavantage.get_intraday(
-                sym,
-                str(interval)+'min',
-                output_size)[0]
-            datum['symbol'] = sym
-            data_list.append(datum)
-        data = pd.concat(data_list)
-        data.rename(
-            columns=lambda x: re.sub(r'[^a-zA-Z_]', '', x),
-            inplace=True)
+        try:
+            for sym in symbols:
+                datum = self._alphavantage.get_intraday(
+                    sym,
+                    str(interval)+'min',
+                    output_size)[0]
+                datum['symbol'] = sym
+                data_list.append(datum)
+            data = pd.concat(data_list)
+            data.rename(
+                columns=lambda x: re.sub(r'[^a-zA-Z_]', '', x),
+                inplace=True)
 
-        data.index = pd.to_datetime(data.index)
-        data = data.reset_index().set_index(['symbol', 'date'])
-        return data
+            data.index = pd.to_datetime(data.index)
+            return data.reset_index().set_index(['symbol', 'date'])
+        except:
+            print("Error retreiving data for " + sym)
+            return pd.DataFrame()
