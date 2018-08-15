@@ -73,8 +73,12 @@ class StockPrices(object):
     def _retreive_history(
             self, symbols, start_date=None, end_date=None):
         """Retrieve daily stock prices."""
-        data = self._datareader.DataReader(
-            symbols, 'iex', start_date, end_date)
+        try:
+            data = self._datareader.DataReader(
+                symbols, 'iex', start_date, end_date)
+        except:
+            data = []
+            print("Error while retreiving data.")
         data.rename(columns=lambda x: x.lower(), inplace=True)
         data.index.names = [x.lower() for x in data.index.names]
         return data
