@@ -6,6 +6,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 import yaml
 import pandas as pd
+pd.core.common.is_list_like = pd.api.types.is_list_like
 from alpha_vantage.timeseries import TimeSeries
 from pandas_datareader import data as web
 
@@ -73,7 +74,7 @@ class StockPrices(object):
             self, symbols, start_date=None, end_date=None):
         """Retrieve daily stock prices."""
         data = self._datareader.DataReader(
-            symbols, 'morningstar', start_date, end_date)
+            symbols, 'iex', start_date, end_date)
         data.rename(columns=lambda x: x.lower(), inplace=True)
         data.index.names = [x.lower() for x in data.index.names]
         return data
